@@ -1,0 +1,20 @@
+{% extends "base.html" %}{% from "_table.html" import table %}
+{% block content %}
+<h1 class="h3 mb-4">Dashboard</h1>
+<div class="row g-3 mb-4">
+  {% for label, key, icon in [('Students','students','mortarboard'),('Instructors','instructors','person-workspace'),('Departments','departments','building'),('Courses','courses','book'),('Sections','sections','diagram-3'),('Active enrollments','enrollments','journal-check')] %}
+  <div class="col-6 col-md-4 col-xl-2"><div class="card stat-card"><div class="card-body">
+    <div class="text-muted small"><i class="bi bi-{{ icon }}"></i> {{ label }}</div>
+    <div class="num" data-stat="{{ key }}">{{ stats[key] }}</div></div></div></div>
+  {% endfor %}
+</div>
+<div class="row g-3">
+  <div class="col-lg-7"><div class="card"><div class="card-header bg-white fw-semibold">Recent enrollment activity</div>
+    <div class="card-body p-2">{{ table(recent, cols=['student','course_code','semester_name','status','enroll_date']) }}</div></div></div>
+  <div class="col-lg-5"><div class="card"><div class="card-header bg-white fw-semibold">Students per department</div>
+    <div class="card-body">{% set mx = (per_dept|map(attribute='n')|max) or 1 %}
+      {% for d in per_dept %}<div class="mb-2"><div class="d-flex justify-content-between small"><span>{{ d.dept_name }}</span><b>{{ d.n }}</b></div>
+        <div class="bar" style="width: {{ (d.n / mx * 100)|round }}%"></div></div>{% endfor %}
+    </div></div></div>
+</div>
+{% endblock %}

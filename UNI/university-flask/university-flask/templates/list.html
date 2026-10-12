@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{ ent.plural }}{% endblock %}
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+  <h1 class="h3 mb-0"><i class="bi bi-{{ ent.icon }}"></i> {{ ent.plural }} <span class="badge text-bg-secondary fs-6">{{ rows|length }}</span></h1>
+  <a class="btn btn-primary" href="{{ url_for('create_view', entity=key) }}"><i class="bi bi-plus-lg"></i> Add {{ ent.singular|lower }}</a>
+</div>
+<form class="row g-2 mb-3" method="get">
+  <div class="col-sm-8 col-md-5"><input class="form-control" name="q" value="{{ term }}" placeholder="Search {{ ent.search|join(', ') }}"></div>
+  <div class="col-auto"><button class="btn btn-outline-primary"><i class="bi bi-search"></i> Search</button>
+    {% if term %}<a class="btn btn-link" href="{{ url_for('list_view', entity=key) }}">Clear</a>{% endif %}</div>
+</form>
+<div class="card"><div class="table-responsive"><table class="table table-hover align-middle mb-0">
+  <thead><tr>{% for c in ent.columns %}<th>{{ c|replace('_',' ') }}</th>{% endfor %}<th class="text-end">Actions</th></tr></thead>
+  <tbody>
+  {% for r in rows %}<tr>
+    {% for c in ent.columns %}<td>{{ r[c] if r[c] is not none else '' }}</td>{% endfor %}
+    <td class="text-end text-nowrap">
+      <a class="btn btn-sm btn-outline-secondary" title="View" href="{{ url_for('detail_view', entity=key, rid=r.id) }}"><i class="bi bi-eye"></i></a>
+      <a class="btn btn-sm btn-outline-primary" title="Edit" href="{{ url_for('edit_view', entity=key, rid=r.id) }}"><i class="bi bi-pencil"></i></a>
+      <button class="btn btn-sm btn-outline-danger" title="Delete" data-confirm-action="{{ url_for('delete_view', entity=key, rid=r.id) }}"
+        data-confirm-text="Delete this {{ ent.singular|lower }}? This cannot be undone."><i class="bi bi-trash"></i></button>
+    </td></tr>
+  {% else %}<tr><td colspan="{{ ent.columns|length + 1 }}" class="text-center text-muted py-4">No records found.</td></tr>{% endfor %}
+  </tbody></table></div></div>
+{% endblock %}

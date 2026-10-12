@@ -1,0 +1,180 @@
+-- Sample data (fictional). Order matters: earlier semesters first so prerequisite triggers pass.
+PRAGMA foreign_keys = ON;
+
+INSERT INTO departments (dept_name, building) VALUES
+('Computer Science', 'Building A'),
+('Mathematics', 'Building B'),
+('Physics', 'Building B'),
+('Business', 'Building C'),
+('English', 'Building D');
+
+INSERT INTO instructors (first_name, last_name, email, phone, hire_date, salary, dept_id) VALUES
+('Omar', 'Haddad', 'omar.haddad@uni.edu', '0791000001', '2012-09-01', 1800, 1),
+('Lina', 'Khalil', 'lina.khalil@uni.edu', '0791000002', '2013-09-01', 1700, 1),
+('Samer', 'Nasser', 'samer.nasser@uni.edu', '0791000003', '2014-09-01', 2000, 2),
+('Rana', 'Odeh', 'rana.odeh@uni.edu', '0791000004', '2015-09-01', 1600, 3),
+('Khaled', 'Majali', 'khaled.majali@uni.edu', '0791000005', '2016-09-01', 1900, 4),
+('Huda', 'Barakat', 'huda.barakat@uni.edu', '0791000006', '2017-09-01', 1650, 1),
+('Tariq', 'Salim', 'tariq.salim@uni.edu', '0791000007', '2018-09-01', 1750, 2),
+('Nadia', 'Fayad', 'nadia.fayad@uni.edu', '0791000008', '2019-09-01', 1700, 4),
+('Fadi', 'Jaber', 'fadi.jaber@uni.edu', '0791000009', '2020-09-01', 1800, 3),
+('Maha', 'Daoud', 'maha.daoud@uni.edu', '0791000010', '2012-09-01', 1550, 5);
+
+UPDATE departments SET head_id = 1 WHERE dept_id = 1;
+UPDATE departments SET head_id = 3 WHERE dept_id = 2;
+UPDATE departments SET head_id = 4 WHERE dept_id = 3;
+UPDATE departments SET head_id = 5 WHERE dept_id = 4;
+UPDATE departments SET head_id = 10 WHERE dept_id = 5;
+
+INSERT INTO students (first_name, last_name, email, phone, birth_date, gender, enroll_date, dept_id) VALUES
+('Ahmad', 'Saleh', 'ahmad.saleh@std.uni.edu', '0781000001', '2003-01-10', 'M', '2025-09-01', 1),
+('Sara', 'Ali', 'sara.ali@std.uni.edu', '0781000002', '2004-02-11', 'F', '2025-09-01', 1),
+('Yazan', 'Mansour', 'yazan.mansour@std.uni.edu', '0781000003', '2003-03-12', 'M', '2025-09-01', 1),
+('Reem', 'Zoubi', 'reem.zoubi@std.uni.edu', '0781000004', '2004-04-13', 'F', '2025-09-01', 1),
+('Mazen', 'Obeidat', 'mazen.obeidat@std.uni.edu', '0781000005', '2003-05-14', 'M', '2025-09-01', 1),
+('Tala', 'Abbas', 'tala.abbas@std.uni.edu', '0781000006', '2004-06-15', 'F', '2025-09-01', 1),
+('Karim', 'Shaheen', 'karim.shaheen@std.uni.edu', '0781000007', '2003-07-16', 'M', '2025-09-01', 1),
+('Jood', 'Hijazi', 'jood.hijazi@std.uni.edu', '0781000008', '2004-08-17', 'F', '2025-09-01', 1),
+('Dana', 'Hamdan', 'dana.hamdan@std.uni.edu', '0781000009', '2003-09-18', 'F', '2025-09-01', 2),
+('Bilal', 'Rawashdeh', 'bilal.rawashdeh@std.uni.edu', '0781000010', '2004-10-19', 'M', '2025-09-01', 2),
+('Lama', 'Qudah', 'lama.qudah@std.uni.edu', '0781000011', '2003-11-20', 'F', '2025-09-01', 2),
+('Laith', 'Qasem', 'laith.qasem@std.uni.edu', '0781000012', '2004-12-21', 'M', '2025-09-01', 3),
+('Salma', 'Dweik', 'salma.dweik@std.uni.edu', '0781000013', '2003-01-22', 'F', '2025-09-01', 3),
+('Zaid', 'Hourani', 'zaid.hourani@std.uni.edu', '0781000014', '2004-02-23', 'M', '2025-09-01', 3),
+('Noor', 'Rimawi', 'noor.rimawi@std.uni.edu', '0781000015', '2003-03-24', 'F', '2025-09-01', 4),
+('Hamza', 'Tarawneh', 'hamza.tarawneh@std.uni.edu', '0781000016', '2004-04-25', 'M', '2025-09-01', 4),
+('Aya', 'Khoury', 'aya.khoury@std.uni.edu', '0781000017', '2003-05-26', 'F', '2025-09-01', 4),
+('Rami', 'Sweis', 'rami.sweis@std.uni.edu', '0781000018', '2004-06-27', 'M', '2025-09-01', 4),
+('Hala', 'Amer', 'hala.amer@std.uni.edu', '0781000019', '2003-07-10', 'F', '2025-09-01', 4),
+('Yousef', 'Bataineh', 'yousef.bataineh@std.uni.edu', '0781000020', '2004-08-11', 'M', '2025-09-01', 5),
+('Mays', 'Arabiyat', 'mays.arabiyat@std.uni.edu', '0781000021', '2003-09-12', 'F', '2025-09-01', 5),
+('Omar', 'Tahat', 'omar.tahat@std.uni.edu', '0781000022', '2004-10-13', 'M', '2025-09-01', 1),
+('Ghada', 'Nimri', 'ghada.nimri@std.uni.edu', '0781000023', '2003-11-14', 'F', '2025-09-01', 4),
+('Sami', 'Fakhoury', 'sami.fakhoury@std.uni.edu', '0781000024', '2004-12-15', 'M', '2025-09-01', 3);
+
+INSERT INTO courses (course_code, course_name, credit_hours, dept_id) VALUES
+('CS101', 'Introduction to Programming', 3, 1),
+('CS201', 'Data Structures', 3, 1),
+('CS301', 'Database Systems', 3, 1),
+('CS350', 'Algorithms', 3, 1),
+('CS410', 'Software Engineering', 3, 1),
+('MATH101', 'Calculus I', 3, 2),
+('MATH201', 'Calculus II', 3, 2),
+('PHY101', 'General Physics', 3, 3),
+('PHY201', 'Electricity and Magnetism', 3, 3),
+('BA101', 'Principles of Management', 3, 4),
+('BA201', 'Marketing', 3, 4),
+('ENG101', 'English Composition', 2, 5);
+
+INSERT INTO course_prerequisites (course_id, prereq_id) VALUES
+(2, 1),
+(3, 2),
+(4, 2),
+(7, 6),
+(9, 8),
+(11, 10);
+
+INSERT INTO semesters (semester_name, academic_year, start_date, end_date) VALUES
+('Fall 2025', '2025/2026', '2025-09-01', '2026-01-15'),
+('Spring 2026', '2025/2026', '2026-02-15', '2026-06-20'),
+('Fall 2026', '2026/2027', '2026-09-01', '2027-01-15');
+
+INSERT INTO classrooms (building, room_number, capacity) VALUES
+('Building A', '101', 40),
+('Building A', '102', 30),
+('Building B', '201', 50),
+('Building B', '202', 35),
+('Building C', '301', 35),
+('Building D', '101', 25);
+
+INSERT INTO sections (course_id, semester_id, instructor_id, room_id, section_no, days, start_time, end_time, max_capacity) VALUES
+(1, 1, 1, 1, 1, 'SUN-TUE-THU', '09:00', '10:00', 40),
+(6, 1, 3, 3, 1, 'MON-WED', '10:00', '11:30', 50),
+(8, 1, 4, 4, 1, 'SUN-TUE-THU', '11:00', '12:00', 35),
+(10, 1, 5, 5, 1, 'MON-WED', '12:00', '13:30', 35),
+(12, 1, 10, 6, 1, 'SUN-TUE', '13:00', '14:30', 25),
+(2, 2, 2, 2, 1, 'SUN-TUE-THU', '09:00', '10:00', 30),
+(7, 2, 7, 3, 1, 'MON-WED', '10:00', '11:30', 50),
+(9, 2, 9, 4, 1, 'SUN-TUE-THU', '11:00', '12:00', 35),
+(11, 2, 8, 5, 1, 'MON-WED', '12:00', '13:30', 35),
+(1, 2, 6, 1, 2, 'MON-WED', '14:00', '15:30', 40),
+(3, 3, 1, 1, 1, 'SUN-TUE-THU', '09:00', '10:00', 3),
+(4, 3, 2, 2, 1, 'MON-WED', '10:00', '11:30', 30),
+(2, 3, 6, 2, 2, 'SUN-TUE-THU', '13:00', '14:00', 30),
+(6, 3, 3, 3, 1, 'SUN-TUE-THU', '09:00', '10:00', 50),
+(10, 3, 8, 5, 1, 'MON-WED', '09:00', '10:30', 35);
+
+INSERT INTO enrollments (student_id, section_id, enroll_date, status, grade) VALUES
+(1, 1, '2025-08-20', 'ENROLLED', 88),
+(2, 1, '2025-08-20', 'ENROLLED', 95),
+(3, 1, '2025-08-20', 'ENROLLED', 67),
+(4, 1, '2025-08-20', 'ENROLLED', 74),
+(5, 1, '2025-08-20', 'ENROLLED', 58),
+(6, 1, '2025-08-20', 'ENROLLED', 81),
+(7, 1, '2025-08-20', 'ENROLLED', 92),
+(8, 1, '2025-08-20', 'ENROLLED', 77),
+(22, 1, '2025-08-20', 'ENROLLED', 85),
+(1, 2, '2025-08-20', 'ENROLLED', 79),
+(2, 2, '2025-08-20', 'ENROLLED', 91),
+(9, 2, '2025-08-20', 'ENROLLED', 85),
+(10, 2, '2025-08-20', 'ENROLLED', 70),
+(11, 2, '2025-08-20', 'ENROLLED', 66),
+(12, 2, '2025-08-20', 'ENROLLED', 88),
+(13, 2, '2025-08-20', 'ENROLLED', 60),
+(14, 2, '2025-08-20', 'ENROLLED', 52),
+(12, 3, '2025-08-20', 'ENROLLED', 72),
+(13, 3, '2025-08-20', 'ENROLLED', 84),
+(14, 3, '2025-08-20', 'ENROLLED', 65),
+(9, 3, '2025-08-20', 'ENROLLED', 90),
+(15, 4, '2025-08-20', 'ENROLLED', 90),
+(16, 4, '2025-08-20', 'ENROLLED', 58),
+(17, 4, '2025-08-20', 'ENROLLED', 76),
+(18, 4, '2025-08-20', 'ENROLLED', 83),
+(19, 4, '2025-08-20', 'ENROLLED', 69),
+(20, 5, '2025-08-20', 'ENROLLED', 88),
+(21, 5, '2025-08-20', 'ENROLLED', 79),
+(15, 5, '2025-08-20', 'ENROLLED', 91),
+(17, 5, '2025-08-20', 'ENROLLED', 72),
+(1, 5, '2025-08-20', 'ENROLLED', 80),
+(1, 6, '2026-02-01', 'ENROLLED', 84),
+(2, 6, '2026-02-01', 'ENROLLED', 97),
+(3, 6, '2026-02-01', 'ENROLLED', 63),
+(4, 6, '2026-02-01', 'ENROLLED', 71),
+(6, 6, '2026-02-01', 'ENROLLED', 79),
+(7, 6, '2026-02-01', 'ENROLLED', 88),
+(22, 6, '2026-02-01', 'ENROLLED', 90),
+(8, 6, '2026-02-01', 'ENROLLED', 68),
+(1, 7, '2026-02-01', 'ENROLLED', 75),
+(2, 7, '2026-02-01', 'ENROLLED', 93),
+(9, 7, '2026-02-01', 'ENROLLED', 88),
+(10, 7, '2026-02-01', 'ENROLLED', 64),
+(12, 7, '2026-02-01', 'ENROLLED', 81),
+(11, 7, '2026-02-01', 'ENROLLED', 59),
+(12, 8, '2026-02-01', 'ENROLLED', 80),
+(13, 8, '2026-02-01', 'ENROLLED', 77),
+(14, 8, '2026-02-01', 'ENROLLED', 62),
+(9, 8, '2026-02-01', 'ENROLLED', 86),
+(15, 9, '2026-02-01', 'ENROLLED', 92),
+(17, 9, '2026-02-01', 'ENROLLED', 70),
+(18, 9, '2026-02-01', 'ENROLLED', 79),
+(19, 9, '2026-02-01', 'ENROLLED', 66),
+(5, 10, '2026-02-01', 'ENROLLED', 71),
+(21, 10, '2026-02-01', 'ENROLLED', 90),
+(16, 10, '2026-02-01', 'ENROLLED', 60),
+(20, 10, '2026-02-01', 'ENROLLED', 55),
+(1, 11, '2026-08-20', 'ENROLLED', NULL),
+(2, 11, '2026-08-20', 'ENROLLED', NULL),
+(3, 11, '2026-08-20', 'ENROLLED', NULL),
+(4, 12, '2026-08-20', 'ENROLLED', NULL),
+(6, 12, '2026-08-20', 'ENROLLED', NULL),
+(7, 12, '2026-08-20', 'ENROLLED', NULL),
+(5, 13, '2026-08-20', 'ENROLLED', NULL),
+(21, 13, '2026-08-20', 'ENROLLED', NULL),
+(16, 13, '2026-08-20', 'ENROLLED', NULL),
+(14, 14, '2026-08-20', 'ENROLLED', NULL),
+(18, 14, '2026-08-20', 'ENROLLED', NULL),
+(19, 14, '2026-08-20', 'ENROLLED', NULL),
+(20, 14, '2026-08-20', 'ENROLLED', NULL),
+(16, 15, '2026-08-20', 'ENROLLED', NULL),
+(20, 15, '2026-08-20', 'ENROLLED', NULL),
+(21, 15, '2026-08-20', 'ENROLLED', NULL);

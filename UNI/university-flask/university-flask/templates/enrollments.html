@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Enrollments{% endblock %}
+{% block content %}
+<h1 class="h3 mb-3"><i class="bi bi-journal-check"></i> Enrollments</h1>
+<div class="card mb-3"><div class="card-header bg-white fw-semibold">Enroll a student in a section</div><div class="card-body">
+  <form method="post" class="row g-2">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="col-md-4"><select class="form-select" name="student_id" required><option value="">-- student --</option>
+      {% for s in students %}<option value="{{ s.student_id }}">{{ s.student_id }} - {{ s.name }}</option>{% endfor %}</select></div>
+    <div class="col-md-6"><select class="form-select" name="section_id" required><option value="">-- section --</option>
+      {% for s in sections %}<option value="{{ s.section_id }}">{{ s.course_code }} / {{ s.semester_name }} / sec {{ s.section_no }} / {{ s.instructor }} ({{ s.enrolled }}/{{ s.max_capacity }})</option>{% endfor %}</select></div>
+    <div class="col-md-2"><button class="btn btn-primary w-100">Enroll</button></div>
+  </form>
+  <div class="form-text">Rules checked: duplicate enrollment, section capacity, prerequisites (grade ≥ 60), schedule conflicts.</div>
+</div></div>
+<form class="row g-2 mb-3" method="get">
+  <div class="col-sm-6 col-md-4"><input class="form-control" name="q" value="{{ term }}" placeholder="Student name / id / course code"></div>
+  <div class="col-auto"><select class="form-select" name="status"><option value="">All statuses</option>
+    <option value="ENROLLED" {{ 'selected' if status=='ENROLLED' }}>Enrolled</option><option value="DROPPED" {{ 'selected' if status=='DROPPED' }}>Dropped</option></select></div>
+  <div class="col-auto"><button class="btn btn-outline-primary"><i class="bi bi-search"></i> Filter</button></div>
+</form>
+<div class="card"><div class="table-responsive"><table class="table table-hover align-middle mb-0">
+  <thead><tr><th>Student</th><th>Course</th><th>Semester</th><th>Status</th><th>Date</th><th style="width:210px">Grade</th><th></th></tr></thead><tbody>
+  {% for r in rows %}<tr>
+    <td><a href="{{ url_for('detail_view', entity='students', rid=r.student_id) }}">{{ r.student }}</a></td><td>{{ r.code }}</td><td>{{ r.semester }}</td>
+    <td><span class="badge text-bg-{{ 'success' if r.status=='ENROLLED' else 'secondary' }}">{{ r.status }}</span></td><td>{{ r.enroll_date }}</td>
+    <td>{% if r.status == 'ENROLLED' %}<form method="post" action="{{ url_for('enrollment_grade', eid=r.id) }}" class="d-flex gap-1">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <input class="form-control form-control-sm" type="number" min="0" max="100" step="0.1" name="grade" value="{{ r.grade if r.grade is not none else '' }}" placeholder="—">
+      <button class="btn btn-sm btn-outline-primary">Save</button></form>{% else %}{{ r.grade if r.grade is not none else '—' }}{% endif %}</td>
+    <td class="text-end">{% if r.status == 'ENROLLED' %}<button class="btn btn-sm btn-outline-warning" data-confirm-action="{{ url_for('enrollment_drop', eid=r.id) }}" data-confirm-text="Drop this enrollment? The record stays in the history.">Drop</button>{% endif %}</td>
+  </tr>{% else %}<tr><td colspan="7" class="text-center text-muted py-4">No enrollments found.</td></tr>{% endfor %}
+</tbody></table></div></div>
+{% endblock %}

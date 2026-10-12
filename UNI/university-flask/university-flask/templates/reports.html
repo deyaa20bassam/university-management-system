@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% from "_table.html" import table %}
+{% block title %}Reports{% endblock %}
+{% block content %}
+<h1 class="h3 mb-3"><i class="bi bi-bar-chart"></i> Reports</h1>
+<div class="accordion" id="rep">
+{% for title, rows in results %}
+  <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button {{ 'collapsed' if not loop.first }}" data-bs-toggle="collapse" data-bs-target="#r{{ loop.index }}">
+    {{ loop.index }}. {{ title }} <span class="badge text-bg-secondary ms-2">{{ rows|length }}</span></button></h2>
+    <div id="r{{ loop.index }}" class="accordion-collapse collapse {{ 'show' if loop.first }}"><div class="accordion-body p-2">{{ table(rows) }}</div></div></div>
+{% endfor %}
+</div>
+{% endblock %}

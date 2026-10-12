@@ -1,0 +1,13 @@
+:root { --uni: #1f3a5f; --uni-light: #2b4d7d; }
+body { background: #f4f6fa; }
+.bg-uni { background: var(--uni) !important; }
+.sidebar { width: 235px; min-height: 100vh; flex-shrink: 0; }
+.sidebar .nav-link { color: #c9d5e8; border-radius: .5rem; margin: 2px 0; }
+.sidebar .nav-link:hover { background: var(--uni-light); color: #fff; }
+.sidebar .nav-link.active { background: #fff; color: var(--uni); font-weight: 600; }
+.stat-card { border: 0; border-left: 4px solid var(--uni); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.stat-card .num { font-size: 2rem; font-weight: 700; color: var(--uni); }
+.card { border: 0; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+.table thead th { background: #eef2f8; font-size: .8rem; text-transform: uppercase; letter-spacing: .03em; white-space: nowrap; }
+.bar { height: 10px; background: var(--uni); border-radius: 5px; }
+@media (min-width: 992px) { .sidebar { position: sticky; top: 0; height: 100vh; } }

@@ -1,0 +1,12 @@
+{% macro table(rows, link=None, cols=None) %}
+  {% if rows %}
+  {% set cols = cols or rows[0].keys()|list %}
+  <div class="table-responsive"><table class="table table-hover table-sm align-middle mb-0">
+    <thead><tr>{% for c in cols if c != 'id' %}<th>{{ c|replace('_',' ') }}</th>{% endfor %}</tr></thead>
+    <tbody>{% for r in rows %}<tr>
+      {% for c in cols if c != 'id' %}<td>
+        {% if loop.first and link and r.id is defined %}<a href="{{ url_for('detail_view', entity=link, rid=r.id) }}">{{ r[c] if r[c] is not none else '' }}</a>
+        {% else %}{{ r[c] if r[c] is not none else '' }}{% endif %}</td>{% endfor %}
+    </tr>{% endfor %}</tbody></table></div>
+  {% else %}<p class="text-muted mb-0">No records.</p>{% endif %}
+{% endmacro %}
