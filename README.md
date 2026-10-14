@@ -1,6 +1,6 @@
 # University Management System
 
-A database course project: a relational database for a university and a web application (Flask + SQLite + Bootstrap) to manage it.
+A relational database system for university management, integrated with a web application built using Flask, SQLite, and Bootstrap to manage university data efficiently.
 
 | | |
 |---|---|
